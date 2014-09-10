@@ -22,7 +22,7 @@ class LangSelectorTagLib {
      * @attr url The url will be used instead of the actual one.
      */
     def selector = { attrs ->
-        String defaultLang = attrs.default
+        String defaultLang = attrs.default?.trim()
         String langs = attrs.langs
         String url = attrs.url
 
@@ -35,9 +35,11 @@ class LangSelectorTagLib {
         }
         Locale selected = session["org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE"]
         // if not set in session, get it from attrs
-        selected = selected ? selected : defaultLang?.trim() //FIXME
-        // if no default is set get default locale
-        selected = selected ? selected : Locale.getDefault()
+        if(!selected && defaultLang) {
+            selected = new Locale(defaultLang);
+        }else {
+            selected = Locale.getDefault();
+        }
         if (url == null) {
             url = request.getRequestURI() + '?'
             String query = request.getQueryString() ? request.getQueryString().replace('lang=' + selected.toString(), '') : ''
