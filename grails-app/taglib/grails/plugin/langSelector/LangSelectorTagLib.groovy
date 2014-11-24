@@ -34,9 +34,9 @@ class LangSelectorTagLib {
         String url = attrs.url?.trim()
         Locale selected = selectLang(defaultLang)
         url = generateUrl(url, selected)
-        Map flags = getFlags(localeCodesList)
+        List<Locale> locales = getFlags(localeCodesList)
         // distinction selected or default style opacity
-        out << render(template: '/langSelector/selector', plugin: 'langSelector', model: [flags: flags, selected: selected, uri: url])
+        out << render(template: '/langSelector/selector', plugin: 'langSelector', model: [locales: locales, selected: selected, uri: url])
     }
 
     /** Priority: Session Locale resolver (only it supported), `default` attr, system default  */
@@ -59,15 +59,15 @@ class LangSelectorTagLib {
         return url
     }
 
-    Map getFlags(List<String> localeCodesList) {
+    List<Locale> getFlags(List<String> localeCodesList) {
         Map<String, String> supported = getSupportedFlagsConfig()
-        Map flags = [:]
+        List<Locale> flags = []
         localeCodesList.each { String localeCode ->
             Locale locale = parseLocale(localeCode)
             if (locale) {
                 String country = locale.country ?: supported[locale.language]
                 if (country) {
-                    flags[localeCode] = country.toLowerCase()
+                    flags << new Locale(locale.language, country.toLowerCase())
                 } else {
                     log.error "No country flag found for: ${locale.language} please check configuration."
                 }
