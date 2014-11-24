@@ -67,7 +67,7 @@ class LangSelectorTagLib {
             if (locale) {
                 String country = locale.country ?: supported[locale.language]
                 if (country) {
-                    flags << new Locale(locale.language, country.toLowerCase())
+                    flags << new Locale(locale.language, country)
                 } else {
                     log.error "No country flag found for: ${locale.language} please check configuration."
                 }
