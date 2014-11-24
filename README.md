@@ -29,7 +29,7 @@ This tag includes the css stylesheet that helps you identify which language is s
 
 
 
-### Difference with <g:localeSelect/> tag
+### Difference with `<g:localeSelect/>` tag
 You can also use standard Grails [<g:localeSelect/>](http://grails.org/doc/latest/ref/Tags/localeSelect.html).
 It shows a combo-box with all known locales and can't show a country flag.
 But it my might be useful if you don't want to use this plugin. Here is example:

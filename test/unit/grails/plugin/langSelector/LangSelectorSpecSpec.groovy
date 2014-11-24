@@ -58,4 +58,20 @@ class LangSelectorSpecSpec extends Specification {
         null                 | LOCALE_FROM_ATTR.language | LOCALE_FROM_ATTR
         null                 | null                      | Locale.default
     }
+
+    @Unroll
+    void "generateUrl(): #url #urlWithParam"() {
+        expect:
+        tagLib.generateUrl(url) == urlWithParam
+        where:
+        url                       | urlWithParam
+        ''                        | '?'
+        null                      | '?'
+        '/libro'                  | '/libro?'
+        '/libro?offset=1'         | '/libro?offset=1&'
+        '/libro?offset=1&'        | '/libro?offset=1&'
+        '/libro?lang=uk'          | '/libro?'
+        '/libro?lang=uk&'         | '/libro?'
+        '/libro?lang=uk&offset=1' | '/libro?offset=1&'
+    }
 }

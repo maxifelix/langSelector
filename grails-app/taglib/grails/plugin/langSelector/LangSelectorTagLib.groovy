@@ -33,7 +33,7 @@ class LangSelectorTagLib {
         String defaultLang = attrs.default?.trim()
         String url = attrs.url?.trim()
         Locale selected = selectLang(defaultLang)
-        url = generateUrl(url, selected)
+        url = generateUrl(url)
         List<Locale> locales = getFlags(localeCodesList)
         // distinction selected or default style opacity
         out << render(template: '/langSelector/selector', plugin: 'langSelector', model: [locales: locales, selected: selected, uri: url])
@@ -45,16 +45,23 @@ class LangSelectorTagLib {
         return selected
     }
 
-    String generateUrl(String url, Locale selected) {
-        if (!url) {
-            url = request.requestURI + '?'
-            String query = request.queryString?.replace('lang=' + selected.toString(), '') ?: ''
-            if (query && !query.endsWith('&')) {
-                query += '&'
+    String generateUrl(String url) {
+        url = removeOldLangParam(url ?: request.requestURI)
+        url += !(url.contains('?')) ? '?' : ''
+        url += !(url.endsWith('?') || url.endsWith('&')) ? '&' : ''
+        url = url.replace('?&', '?')
+        return url
+    }
+
+    private String removeOldLangParam(String url) {
+        if (url.toLowerCase().contains('lang=')) {
+            int startPos = url.toLowerCase().indexOf('lang=')
+            if (url.charAt(startPos - 1) == '&') {
+                startPos -= 1
             }
-            url += query + 'lang='
-        } else {
-            url += url.contains('?') ? '&lang=' : '?lang='
+            int endPos = url.indexOf('&', startPos)
+            endPos = endPos != -1 ? endPos : url.length()
+            url = new StringBuffer(url).delete(startPos, endPos).toString()
         }
         return url
     }
@@ -100,18 +107,18 @@ class LangSelectorTagLib {
 
     /** this static property can be overridden by config */
     static final LANG_FLAGS = [
-            'es': 'es',
-            'en': 'gb',
-            'fr': 'fr',
-            'da': 'dk',
-            'de': 'de',
-            'it': 'it',
-            'ja': 'jp',
-            'nl': 'nl',
-            'ru': 'ru',
-            'th': 'th',
-            'zh': 'cn',
-            'pt': 'pt'
+            'es': 'ES',
+            'en': 'GB',
+            'fr': 'FR',
+            'da': 'DK',
+            'de': 'DE',
+            'it': 'IT',
+            'ja': 'JP',
+            'nl': 'NL',
+            'ru': 'RU',
+            'th': 'TH',
+            'zh': 'CN',
+            'pt': 'PT'
     ]
 
     private Map<String, String> getSupportedFlagsConfig() {
