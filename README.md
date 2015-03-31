@@ -1,5 +1,7 @@
 # Grails Language Selector Plugin
 
+[![Build Status](https://travis-ci.org/stokito/langSelector.png?branch=master)](https://travis-ci.org/stokito/langSelector)
+
 This plugin provides a simple to use tag, to display flags for countries of the languages your application supports, that when clicked, changes the language of your application using the i18n support provided by Grails.
 
 Flag icons 16x16 pixels are from [FamFamFam](http://www.famfamfam.com/lab/icons/flags/)
@@ -25,10 +27,23 @@ This tag includes the css stylesheet that helps you identify which language is s
 <langs:resources/>
 ```
 
+
+
+### Difference with `<g:localeSelect/>` tag
+You can also use standard Grails [<g:localeSelect/>](http://grails.org/doc/latest/ref/Tags/localeSelect.html).
+It shows a combo-box with all known locales and can't show a country flag.
+But it my might be useful if you don't want to use this plugin. Here is example:
+```gsp
+<form method="get">
+    <g:localeSelect name="lang" value="${Locale.ENGLISH}"/>
+    <input type="submit" value="Change locale"/>
+</form>
+```
+
 ## Configuration.
-Optionally you can add this property to the `Config.groovy` to tell the plugin which flag display for the language. By default has the value shown below. Its a map that in the keys are the languages and the values are the countrys.
+Optionally you can add this property to the `Config.groovy` to tell the plugin which flag display for the language. By default has the value shown below. Its a map that in the keys are the languages and the values are the countries.
 ```groovy
-com.mfelix.grails.plugins.langSelector.lang.flags = [
+grails.plugin.langSelector.langFlags = [
 	'es': 'es',
 	'en': 'gb',
 	'fr': 'fr',
@@ -56,6 +71,19 @@ Here is an example:
 You should change the name of the file to get it working, this way: `messages.properties` -> `messages_en.properties`
 
 ## Plugin history
+
+### v0.4
+`<langs:resource/>` tag is deprecated and will be removed in v1.0. You should use standard `<r:require module="langSelector"/>` instead:
+
+```html
+<head>
+	...
+	<r:require module="localeSelector"/>
+</head>
+```
+
+-[#9] `com.mfelix.grails.plugins.langSelector.lang.flags` with `grails.plugin.langSelector.langFlags`
+
 * 2011-02-02 - version 0.3 Added 'default' param, to set the default flag to be highlighted.
 * 2010-10-20 - version 0.2 Fixed bug in generated url when it had params, added url param
 * 2010-09-04 - version 0.1.1 Bug fixed - some missing trim()

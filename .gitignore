@@ -1,8 +1,5 @@
 plugin.xml
 
-# web application files
-#/web-app/WEB-INF
-
 # IDE support files
 /.classpath
 /.launch

@@ -9,6 +9,10 @@
     text-decoration: none;
 }
 
-.opacitiy_not_selected {
+.opacity_not_selected {
     opacity: 0.5;
+}
+
+.opacity_selected {
+    opacity: 1;
 }
