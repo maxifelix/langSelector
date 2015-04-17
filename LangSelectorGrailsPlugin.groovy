@@ -1,6 +1,6 @@
 class LangSelectorGrailsPlugin {
     // the plugin version
-    String version = '0.3.1-wf'
+    String version = '0.3.2-wf'
     // the version or versions of Grails the plugin is designed for
     String grailsVersion = '1.2.2 > *'
     String author = 'Maximiliano Felix'
