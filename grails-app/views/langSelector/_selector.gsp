@@ -8,7 +8,7 @@
 		<a href="${uri + 'lang=' + locale.language}"
 			title="${g.message(code:"langSelector.locale.${locale.language}", default:locale.getDisplayName())}"
 			class="lang_link"> <span
-			class="lang_flag ${locale == selected ? 'opacity_selected' : 'opacity_not_selected'}">
+			class="lang_flag ${locale==selected || locale.language == selected.language ? 'opacity_selected' : 'opacity_not_selected'}">
 				<g:if test="${hasAsset}">
 					<asset:image
 						src="flags/png/${locale.country.toLowerCase()}.png" />
