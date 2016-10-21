@@ -41,3 +41,7 @@ plugin.xml
 # other
 *.iws
 *.bak
+
+#gradle
+.gradle
+build
