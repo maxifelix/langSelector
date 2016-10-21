@@ -72,18 +72,13 @@ You should change the name of the file to get it working, this way: `messages.pr
 
 ## Plugin history
 
-### v0.4
-`<langs:resource/>` tag is deprecated and will be removed in v1.0. You should use standard `<r:require module="langSelector"/>` instead:
+### v3.0.0-SNAPSHOT Migration to grails 3, improvment and fix tests
 
-```html
-<head>
-	...
-	<r:require module="localeSelector"/>
-</head>
-```
 
--[#9] `com.mfelix.grails.plugins.langSelector.lang.flags` with `grails.plugin.langSelector.langFlags`
 
+
+*            - version 0.3.3-wf use asset plugin if available to display images   
+*            - version 0.4 <langs:resource/>` tag is deprecated use standard `<r:require module="langSelector"/>` 
 * 2011-02-02 - version 0.3 Added 'default' param, to set the default flag to be highlighted.
 * 2010-10-20 - version 0.2 Fixed bug in generated url when it had params, added url param
 * 2010-09-04 - version 0.1.1 Bug fixed - some missing trim()
